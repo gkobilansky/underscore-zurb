@@ -88,6 +88,8 @@ function tdvids_widgets_init() {
 }
 add_action( 'widgets_init', 'tdvids_widgets_init' );
 
+
+
 /**
  * Enqueue scripts and styles.
  */
@@ -98,9 +100,8 @@ function tdvids_scripts() {
 wp_enqueue_style( 'foundation-normalize', get_stylesheet_directory_uri() . '/foundation/css/normalize.css' );
 wp_enqueue_style( 'foundation', get_stylesheet_directory_uri() . '/foundation/css/foundation.css' );
  
-/* Add Custom CSS 
+/* Add Custom CSS  */
 wp_enqueue_style( 'wordpress-dealership-style', get_stylesheet_directory_uri() . '/custom.css', array(), '1' );
-*/
  
 /* Add Foundation JS */
 wp_enqueue_script( 'foundation-js', get_template_directory_uri() . '/foundation/js/foundation.min.js', array( 'jquery' ), '1', true );
@@ -108,8 +109,8 @@ wp_enqueue_script( 'foundation-modernizr-js', get_template_directory_uri() . '/f
  
 /* Foundation Init JS */
 wp_enqueue_script( 'foundation-init-js', get_template_directory_uri() . '/foundation.js', array( 'jquery' ), '1', true );
-wp_enqueue_script( 'wordpress-dealership-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
-wp_enqueue_script( 'wordpress-dealership-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
+wp_enqueue_script( 'tdvids-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
+wp_enqueue_script( 'tdvids-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
 
 
 	wp_enqueue_script( 'tdvids-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
@@ -121,6 +122,13 @@ wp_enqueue_script( 'wordpress-dealership-skip-link-focus-fix', get_template_dire
 	}
 }
 add_action( 'wp_enqueue_scripts', 'tdvids_scripts' );
+
+function tdvids_nav_menu($menu){
+	$menu = str_replace('menu-item-has-children', 'menu-item-has-children has-dropdown', $menu);
+	$menu = str_replace('sub-menu', 'sub-menu dropdown', $menu);
+	return $menu;
+}
+add_filter('wp_nav_menu','tdvids_nav_menu');
 
 /**
  * Implement the Custom Header feature.
